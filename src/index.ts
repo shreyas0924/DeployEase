@@ -4,6 +4,7 @@ import cors from "cors";
 import { generateRandomId } from "./generateRandom";
 import simpleGit from "simple-git";
 import path from "path";
+import { getAllFiles } from "./getAllFiles";
 const app: Express = express();
 const port = process.env.PORT || 3000;
 dotenv.config();
@@ -20,7 +21,8 @@ app.post("/deploy", async (req: Request, res: Response) => {
   const id = generateRandomId();
   await simpleGit().clone(repoUrl, path.join(__dirname, `output/${id}`));
   console.log(repoUrl);
-
+  const files = getAllFiles(path.join(__dirname, `output/${id}`));
+  console.log(files);
   res.json({
     id: id,
   });
