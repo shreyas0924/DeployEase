@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx ts-node src/index.ts"
+    "dev": "npx ts-node src/index.ts",
+    "build": "tsup src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@swc/core": "^1.4.1",
     "@types/node": "^20.11.17",
     "ts-node": "^10.9.2",
     "tslib": "^2.6.2"
@@ -23,6 +25,7 @@
     "dotenv": "^16.4.2",
     "express": "^4.18.2",
     "redis": "^4.6.13",
-    "simple-git": "^3.22.0"
+    "simple-git": "^3.22.0",
+    "tsup": "^8.0.2"
   }
 }
