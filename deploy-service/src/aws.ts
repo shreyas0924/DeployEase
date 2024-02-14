@@ -1,6 +1,7 @@
 import { S3 } from "aws-sdk";
 import fs from "fs";
 import path from "path";
+import "dotenv/config";
 const s3 = new S3({
   accessKeyId: process.env.ACCESS_ID,
   secretAccessKey: process.env.SECRET_KEY,
@@ -14,6 +15,7 @@ export async function downloadS3Folder(prefix: string) {
       Prefix: prefix,
     })
     .promise();
+
   const allPromises =
     allFiles.Contents?.map(async ({ Key }) => {
       return new Promise(async (resolve) => {
