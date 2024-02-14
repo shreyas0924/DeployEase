@@ -6,6 +6,11 @@ import simpleGit from "simple-git";
 import path from "path";
 import { getAllFiles } from "./getAllFiles";
 import { uploadFile } from "./aws";
+import { createClient } from "redis";
+
+const publisher = createClient();
+publisher.connect();
+
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
@@ -30,6 +35,9 @@ app.post("/deploy", async (req: Request, res: Response) => {
   files.forEach(async (file) => {
     await uploadFile(file.slice(__dirname.length + 1), file);
   });
+
+  //push the id to redis queue
+  publisher.lPush("build-queue", id);
 
   res.json({
     id: id,
