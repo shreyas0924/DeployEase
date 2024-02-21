@@ -1,21 +1,28 @@
 import { commandOptions, createClient } from "redis";
-import { downloadS3Folder } from "./aws";
+import { copyFinalDist, downloadS3Folder } from "./aws";
 
 import "dotenv/config";
+import { buildProject } from "./build";
 const subscriber = createClient();
 subscriber.connect();
-
+const publisher = createClient();
+publisher.connect();
 async function main() {
   while (1) {
-    const response = await subscriber.brPop(
+    const res = await subscriber.brPop(
       commandOptions({ isolated: true }),
       "build-queue",
       0,
     );
-    const id = response?.element;
+    // @ts-ignore;
+    const id = res.element;
+
     await downloadS3Folder(`output/${id}`);
-    console.log("Downloaded");
+    await buildProject(id);
+    await copyFinalDist(id);
+    console.log("Copied Final dist/ to S3");
+
+    publisher.hSet("status", id, "deployed");
   }
 }
-
 main();
