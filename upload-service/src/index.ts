@@ -38,7 +38,7 @@ app.post("/deploy", async (req: Request, res: Response) => {
   files.forEach(async (file) => {
     await uploadFile(file.slice(__dirname.length + 1), file);
   });
-
+  await new Promise((res) => setTimeout(res, 5000));
   //push the id to redis queue
   publisher.lPush("build-queue", id);
   publisher.hSet("status", id, "uploaded");
