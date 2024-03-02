@@ -16,7 +16,7 @@ async function main() {
     );
     // @ts-ignore;
     const id = res.element;
-
+    console.log("This is id");
     await downloadS3Folder(`output/${id}`);
     await buildProject(id);
     await copyFinalDist(id);
