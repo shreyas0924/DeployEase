@@ -88,13 +88,13 @@ export function Landing() {
                 id="deployed-url"
                 readOnly
                 type="url"
-                value={`http://localhost:8080/${uploadId}/index.html`}
+                value={`http://localhost:3001/${uploadId}/index.html`}
               />
             </div>
             <br />
             <Button className="w-full" variant="outline">
               <a
-                href={`http://localhost:8080/${uploadId}/index.html`}
+                href={`http://localhost:3001/${uploadId}/index.html`}
                 target="_blank"
               >
                 Visit Website
