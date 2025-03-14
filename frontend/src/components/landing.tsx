@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import axios from "axios";
 
-const BACKEND_UPLOAD_URL = "http://localhost:3000";
+const UPLOAD_SERVICE_URL = import.meta.env.VITE_APP_UPLOAD_SERVICE_URL!;
 
 export function Landing() {
   const [repoUrl, setRepoUrl] = useState("");
@@ -44,14 +44,14 @@ export function Landing() {
             <Button
               onClick={async () => {
                 setUploading(true);
-                const res = await axios.post(`${BACKEND_UPLOAD_URL}/deploy`, {
+                const res = await axios.post(`${UPLOAD_SERVICE_URL}/deploy`, {
                   repoUrl: repoUrl,
                 });
                 setUploadId(res.data.id);
                 setUploading(false);
                 const interval = setInterval(async () => {
                   const response = await axios.get(
-                    `${BACKEND_UPLOAD_URL}/status?id=${res.data.id}`,
+                    `${UPLOAD_SERVICE_URL}/status?id=${res.data.id}`,
                   );
 
                   if (response.data.status === "deployed") {
@@ -88,13 +88,13 @@ export function Landing() {
                 id="deployed-url"
                 readOnly
                 type="url"
-                value={`http://${uploadId}.vercel-dev.com:3001/index.html`}
+                value={`http://localhost:8080/${uploadId}/index.html`}
               />
             </div>
             <br />
             <Button className="w-full" variant="outline">
               <a
-                href={`http://${uploadId}.10kdevs.com/index.html`}
+                href={`http://localhost:8080/${uploadId}/index.html`}
                 target="_blank"
               >
                 Visit Website
