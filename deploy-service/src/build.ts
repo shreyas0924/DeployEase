@@ -7,6 +7,7 @@ export function buildProject(id: string) {
       `cd ${path.join(__dirname, `output/${id}`)} && npm install && npm run build`,
     );
 
+    console.log('Building project...');
     child.stdout?.on("data", function (data) {
       console.log("stdout: " + data);
     });

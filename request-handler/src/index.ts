@@ -18,7 +18,7 @@ app.get("/*", async (req, res) => {
 
   const contents = await s3
     .getObject({
-      Bucket: "vercel",
+      Bucket: process.env.S3_BUCKET!,
       Key: `dist/${id}${filePath}`,
     })
     .promise();

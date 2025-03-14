@@ -1,12 +1,18 @@
 import { commandOptions, createClient } from "redis";
 import { copyFinalDist, downloadS3Folder } from "./aws";
-
 import "dotenv/config";
 import { buildProject } from "./build";
-const subscriber = createClient();
+
+const subscriber = createClient({
+  url: process.env.REDIS_URL,
+});
 subscriber.connect();
-const publisher = createClient();
+
+const publisher = createClient({
+  url: process.env.REDIS_URL,
+});
 publisher.connect();
+
 async function main() {
   while (1) {
     const res = await subscriber.brPop(

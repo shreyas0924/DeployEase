@@ -8,11 +8,16 @@ import { getAllFiles } from "./getAllFiles";
 import { uploadFile } from "./aws";
 import { createClient } from "redis";
 
-const publisher = createClient();
+const publisher = createClient({
+  url: process.env.REDIS_URL,
+});
 publisher.connect();
 
-const subscriber = createClient();
+const subscriber = createClient({
+  url: process.env.REDIS_URL,
+});
 subscriber.connect();
+
 
 const app: Express = express();
 const port = process.env.PORT || 3000;

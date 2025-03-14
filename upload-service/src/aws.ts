@@ -12,7 +12,7 @@ export const uploadFile = async (fileName: string, localFilePath: string) => {
   const response = await s3
     .upload({
       Body: fileContent,
-      Bucket: "vercel",
+      Bucket: process.env.S3_BUCKET!,
       Key: fileName,
     })
     .promise();
