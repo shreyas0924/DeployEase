@@ -30,5 +30,12 @@ The Request Handler is responsible for serving the deployed project. After the D
 ### Frontend
 The Frontend is a React-based interface where users can submit their GitHub repository URLs for deployment. It interacts with the Upload Service and Deploy Service and receives the final deployed URL once the process is complete.
 
+## Tech Stack
+- React
+- Node.js
+- Express
+- Redis
+- Amazon S3
+- Docker
 
 
